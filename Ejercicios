@@ -1,0 +1,163 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Ejercicio1POO
+{
+    class Program
+    {
+
+
+        // ALUMNO: FLEITAS ,Emanuel
+
+        /*
+         Practico1:
+         Desarrolle una programa orientado a objetos en C#:
+         
+         para gestionar una clase cuenta corriente se caracteriza por tener asociado un numero de cuenta y un saldo disponible.
+         Además, se puede consultar el saldo disponible en cualquier momento, recibir depósitos y realizar extracciones 
+         y pagos. 
+         
+         Creara demás una clase Persona, que se caracteriza por un DNI y un array de cuentas bancarias. 
+         La Persona puede tener asociada hasta 3 cuentas bancarias, y debe tener un método que permite añadir
+         cuentas (hasta 3 que es el máximo). También debe contener un método que devuelva si la persona es morosa, 
+         ej., si tienen alguna cuenta con saldo negativo. 
+         
+         Crear una clase Prueba Cuentas que instancie un objeto
+         Persona con un dni cualquiera, así como dos objetos cuenta, una sin saldo inicial y otra con 700 euros.
+         La persona recibe la nomina mensual, por lo que ingresa 1100 euros en la primera cuenta, pero tiene que pagar 
+         el alquiler de 750 euros con la segunda. Imprimir por pantalla el si la persona es morosa. Posteriormente hacer 
+         una transferencia de una cuenta a otra y comprobar mostrándolo por pantalla que cambia el estado de la persona. 
+             
+             
+             
+             
+             
+        */
+
+        static void Main(string[] args)
+        {
+
+
+          
+        }
+
+        class CuentaCorriente
+        {
+            private double saldo;
+            private int numCuenta;
+
+         public CuentaCorriente() { }
+
+         public int VerNumCuenta()
+            {
+
+
+                return this.numCuenta;
+
+            }
+
+         public void AgregarNumDeCuenta(int num)
+            {
+
+                this.numCuenta = num;
+            }   
+
+         public double VerSaldo()
+            {
+
+
+                return this.saldo;
+
+            }
+
+         public void RealizarDeposito(double monto)
+            {
+
+                this.saldo = monto;
+
+
+            }
+
+         public void RealizarExtraccion(double monto)
+            {
+                if(this.saldo > monto) this.saldo -= monto;
+                else Console.WriteLine("No tenes el saldo suficiente para extraer esa cantidad");            
+            }
+         
+         public void RealizarPago(double monto)
+            {
+                string rta;
+                Console.WriteLine("Que desea pagar?");
+                rta = Console.ReadLine();
+                Console.WriteLine("Ingrese el monto de la factura");
+                monto = int.Parse(Console.ReadLine());
+              
+                    this.saldo -= monto;
+                    Console.WriteLine("Pago hecho , le quedo un saldo de: {}",this.saldo);
+
+                
+               
+
+            }   
+
+
+        }
+
+
+        class Persona
+        {
+            private int dni;
+            private CuentaCorriente[] Cuentas = new CuentaCorriente[3];
+            private static int NumeroDeCuentas = 0;
+
+            public Persona(){}
+
+            public void AgregarCuentaCorriente()
+            {
+
+                if (NumeroDeCuentas>3)
+                {
+                    Console.WriteLine("No puede tener mas de tres cuentas ");
+                }
+
+                NumeroDeCuentas += 1;
+                
+
+
+
+                int numCuenta;
+
+                Console.WriteLine("Ingrese el numero de la nueva cuenta: ");
+                Console.Write("Numero de Cuenta: "); numCuenta = int.Parse(Console.ReadLine());
+
+
+
+
+
+                Cuentas[NumeroDeCuentas].AgregarNumDeCuenta(numCuenta);
+
+
+
+            }
+
+            public void CuentaMorosa(CuentaCorriente cuentas)
+            {
+                if (cuentas.VerSaldo() < 0)
+                {
+                    Console.WriteLine($"La cuenta corriente con el numero: {cuentas.VerNumCuenta()} esta moroso");
+                }
+            }
+
+
+
+        }
+
+
+
+
+
+    }
+}
